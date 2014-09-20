@@ -1,17 +1,25 @@
 {
+   "variables": {
+      "os": "centos-6.5",
+      "iso_url": "http://mirror.fysik.dtu.dk/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
+      "iso_checksum": "0d9dc37b5dd4befa1c440d2174e88a87",
+      "memsize": "1024",
+      "cpus": "2"
+   },
+
    "builders": [{
       "type": "parallels-iso",
       "guest_os_type": "centos",
 
-      "vm_name": "packer-centos-6.5",
+      "vm_name": "{{user `os`}}-parallels",
 
       "prlctl": [
-         ["set", "{{.Name}}", "--memsize", "1024"],
+         ["set", "{{.Name}}", "--memsize", "{{user `memsize`}}"],
          ["set", "{{.Name}}", "--cpus", "2"]
       ],
 
-      "iso_url": "http://mirror.fysik.dtu.dk/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
-      "iso_checksum": "0d9dc37b5dd4befa1c440d2174e88a87",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "md5",
 
       "parallels_tools_flavor": "lin",
@@ -25,22 +33,24 @@
       "ssh_password": "vagrant",
       "ssh_wait_timeout": "10000s",
 
-      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now"
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+
+      "output_directory": "vm"
 
    },
    {
       "type": "virtualbox-iso",
       "guest_os_type": "RedHat_64",
 
-      "vm_name": "packer-centos-6.5",
+      "vm_name": "{{user `os`}}-virtualbox",
 
       "vboxmanage": [
-         ["modifyvm", "{{.Name}}", "--memory", "1024"],
-         ["modifyvm", "{{.Name}}", "--cpus", "2"]
+         ["modifyvm", "{{.Name}}", "--memory", "{{user `memsize`}}"],
+         ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
       ],
 
-      "iso_url": "http://mirror.fysik.dtu.dk/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
-      "iso_checksum": "0d9dc37b5dd4befa1c440d2174e88a87",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "md5",
 
       "guest_additions_mode": "attach",
@@ -53,41 +63,24 @@
       "ssh_password": "vagrant",
       "ssh_wait_timeout": "10000s",
 
-      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now"
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+
+      "output_directory": "vm"
    }],
 
    "provisioners": [
       {
          "type": "shell",
-         "only": ["parallels-iso"],
-         "override": {
-            "parallels-iso": {
-               "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'"
-            }
-         },
-         "inline": [
-            "mount -r -t iso9660 /dev/cdrom1 /mnt",
-            "/mnt/install --install-unattended-with-deps --progress",
-            "umount /mnt"
-         ]
-      },
-      {
-         "type": "shell",
-         "only": ["virtualbox-iso"],
-         "override": {
-            "virtualbox-iso": {
-               "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'"
-            }
-         },
-         "inline": [
-            "yum -y install gcc make perl kernel-devel-$(uname -r)",
-            "mount -r -t iso9660 /dev/cdrom1 /mnt",
-            "/mnt/VBoxLinuxAdditions.run --nox11",
-            "umount /mnt",
-            "yum -y history undo last"
-         ]
+         "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
+         "scripts": ["packer_provisioning.sh"]
       }
    ],
 
-   "post-processors": ["vagrant"]
+   "post-processors": [
+      {
+         "type": "vagrant",
+         "keep_input_artifact": true,
+         "output": "box/{{user `os`}}-{{.Provider}}.box"
+      }
+   ]
 }

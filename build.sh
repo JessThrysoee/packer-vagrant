@@ -9,9 +9,12 @@ fi
 
 export VAGRANT_DEFAULT_PROVIDER=$provider
 
-vagrant destroy
-packer build -only=${provider}-iso packer.json
-vagrant box remove --force JessThrysoee/packer_centos-6.5 && true
-vagrant box add --force --name JessThrysoee/packer_centos-6.5 packer_${provider}-iso_${provider}.box
-vagrant up --provider $provider
+#rm -rf output-parallels-iso
+#vagrant destroy
+#vagrant box remove --force JessThrysoee/packer_centos-6.5 && true
+
+#packer build -only=${provider}-iso packer.json
+
+vagrant box add --force --name JessThrysoee/centos-6.5-${provider} box/centos-6.5-${provider}.box
+#vagrant up --provider $provider
 
