@@ -59,6 +59,20 @@
    "provisioners": [
       {
          "type": "shell",
+         "only": ["parallels-iso"],
+         "override": {
+            "parallels-iso": {
+               "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'"
+            }
+         },
+         "inline": [
+            "mount -r -t iso9660 /dev/cdrom1 /mnt",
+            "/mnt/install --install-unattended-with-deps --progress",
+            "umount /mnt"
+         ]
+      },
+      {
+         "type": "shell",
          "only": ["virtualbox-iso"],
          "override": {
             "virtualbox-iso": {

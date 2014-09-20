@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
    config.vm.hostname = "centos"
    config.vm.box = 'JessThrysoee/packer_centos-6.5'
 
-   config.vm.network "public_network", bridge: 'en0: Ethernet'
+   #config.vm.network "public_network", bridge: 'en0: Ethernet'
    #config.vm.provision "shell", inline: $script
 
    config.vm.provider "parallels" do |v|
