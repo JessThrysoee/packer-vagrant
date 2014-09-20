@@ -1,0 +1,79 @@
+{
+   "builders": [{
+      "type": "parallels-iso",
+      "guest_os_type": "centos",
+
+      "vm_name": "packer-centos-6.5",
+
+      "prlctl": [
+         ["set", "{{.Name}}", "--memsize", "1024"],
+         ["set", "{{.Name}}", "--cpus", "2"]
+      ],
+
+      "iso_url": "http://mirror.fysik.dtu.dk/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
+      "iso_checksum": "0d9dc37b5dd4befa1c440d2174e88a87",
+      "iso_checksum_type": "md5",
+
+      "parallels_tools_flavor": "lin",
+      "parallels_tools_mode" : "attach",
+
+      "boot_wait": "3s",
+      "floppy_files": ["ks.cfg"],
+      "boot_command": ["<tab> ks=floppy/ks.cfg<enter>"],
+
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "10000s",
+
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now"
+
+   },
+   {
+      "type": "virtualbox-iso",
+      "guest_os_type": "RedHat_64",
+
+      "vm_name": "packer-centos-6.5",
+
+      "vboxmanage": [
+         ["modifyvm", "{{.Name}}", "--memory", "1024"],
+         ["modifyvm", "{{.Name}}", "--cpus", "2"]
+      ],
+
+      "iso_url": "http://mirror.fysik.dtu.dk/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
+      "iso_checksum": "0d9dc37b5dd4befa1c440d2174e88a87",
+      "iso_checksum_type": "md5",
+
+      "guest_additions_mode": "attach",
+
+      "boot_wait": "3s",
+      "floppy_files": ["ks.cfg"],
+      "boot_command": ["<tab> ks=floppy/ks.cfg<enter>"],
+
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "10000s",
+
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now"
+   }],
+
+   "provisioners": [
+      {
+         "type": "shell",
+         "only": ["virtualbox-iso"],
+         "override": {
+            "virtualbox-iso": {
+               "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'"
+            }
+         },
+         "inline": [
+            "yum -y install gcc make perl kernel-devel-$(uname -r)",
+            "mount -r -t iso9660 /dev/cdrom1 /mnt",
+            "/mnt/VBoxLinuxAdditions.run --nox11",
+            "umount /mnt",
+            "yum -y history undo last"
+         ]
+      }
+   ],
+
+   "post-processors": ["vagrant"]
+}
