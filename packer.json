@@ -3,8 +3,8 @@
       "os": "centos-6.5",
       "iso_url": "http://mirror.fysik.dtu.dk/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
       "iso_checksum": "0d9dc37b5dd4befa1c440d2174e88a87",
-      "memsize": "1024",
-      "cpus": "2"
+      "memsize": "512",
+      "cpus": "1"
    },
 
    "builders": [{
@@ -15,7 +15,7 @@
 
       "prlctl": [
          ["set", "{{.Name}}", "--memsize", "{{user `memsize`}}"],
-         ["set", "{{.Name}}", "--cpus", "2"]
+         ["set", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
       ],
 
       "iso_url": "{{user `iso_url`}}",
@@ -35,7 +35,7 @@
 
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
 
-      "output_directory": "vm"
+      "output_directory": "vm-parallels"
 
    },
    {
@@ -65,7 +65,7 @@
 
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
 
-      "output_directory": "vm"
+      "output_directory": "vm-virtualbox"
    }],
 
    "provisioners": [

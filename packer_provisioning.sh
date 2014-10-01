@@ -3,7 +3,7 @@
 # parallels
 if [[ $PACKER_BUILDER_TYPE = parallels*  ]]
 then
-   mount -r -t iso9660 /dev/sr2 /mnt
+   mount -r -t iso9660 /dev/sr1 /mnt
 
    if [[ -x /mnt/install ]]
    then

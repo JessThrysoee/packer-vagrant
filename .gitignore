@@ -1,4 +1,4 @@
 .vagrant/
-vm/
+vm-*/
 box/
 packer_cache/

@@ -1,29 +1,23 @@
 
-$script = <<SCRIPT
-sudo yum install -y bash-completion git vim man
-SCRIPT
-
 Vagrant.configure("2") do |config|
 
    config.vm.hostname = "centos"
-   config.vm.box = 'JessThrysoee/packer_centos-6.5'
 
-   #config.vm.network "public_network", bridge: 'en0: Ethernet'
-   #config.vm.provision "shell", inline: $script
-
-   config.vm.provider "parallels" do |v|
+   config.vm.provider "parallels" do |v, override|
+      override.vm.box = 'JessThrysoee/centos-6.5-parallels'
       v.name = "CentOS-6.5 (vagrant)"
-      v.memory = 1024
-      v.cpus = 2
+      v.memory = 512
+      v.cpus = 1
       v.update_guest_tools = true
       v.optimize_power_consumption = false
       v.customize ["set", :id, "--on-shutdown", "close"]
    end
 
-   config.vm.provider "virtualbox" do |v|
+   config.vm.provider "virtualbox" do |v, override|
+        override.vm.box = 'JessThrysoee/centos-6.5-virtualbox'
         v.name = "CentOS-6.5 (vagrant)"
-        v.memory = 1024
-        v.cpus = 2
+        v.memory = 512
+        v.cpus = 1
         v.gui = false
    end
 
