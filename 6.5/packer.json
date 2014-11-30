@@ -27,7 +27,7 @@
 
       "boot_wait": "3s",
       "floppy_files": ["ks.cfg"],
-      "boot_command": ["<tab> inst.ks=hd:fd0:/ks.cfg<enter>"],
+      "boot_command": ["<tab> ks=floppy/ks.cfg<enter>"],
 
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -72,7 +72,7 @@
       {
          "type": "shell",
          "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
-         "scripts": ["packer_provisioning.sh"]
+         "scripts": ["../packer_provisioning.sh"]
       }
    ],
 

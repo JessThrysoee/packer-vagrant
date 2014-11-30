@@ -1,4 +1,7 @@
 #!/bin/bash
 
-rm -rf vm-* box packer_cache
+for el in 6.5 7.0
+do
+   rm -rf $el/vm-* $el/box $el/packer_cache
+done
 
