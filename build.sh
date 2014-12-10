@@ -29,4 +29,5 @@ packer build -only=${provider}-iso packer.json
 
 vagrant box add --force --name JessThrysoee/centos-${el}-${provider} box/centos-${el}-${provider}.box
 vagrant up --provider $provider
+vagrant destroy -f
 
