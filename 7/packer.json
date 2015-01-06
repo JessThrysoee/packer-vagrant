@@ -1,6 +1,6 @@
 {
    "variables": {
-      "os": "centos-7.0",
+      "os": "centos-7",
       "iso_url": "http://mirror.fysik.dtu.dk/linux/centos/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-Minimal.iso",
       "iso_checksum": "e3afe3f1121d69c40cc23f0bafa05e5d",
       "memsize": "512",

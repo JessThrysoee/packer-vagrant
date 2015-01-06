@@ -6,14 +6,14 @@ el="$2"
 if [[ $provider != parallels && $provider != virtualbox ]]
 then
    echo "suported providers 'parallels' or 'virtualbox'"
-   echo "usage: $(basename $0) <parallels|virtualbox> <6.5|7.0>"
+   echo "usage: $(basename $0) <parallels|virtualbox> <6|7>"
    exit 1
 fi
 
-if [[ $el != 6.5 && $el != 7.0 ]]
+if [[ $el != 6 && $el != 7 ]]
 then
-   echo "suported redhat versions '6.5' or '7.0'"
-   echo "usage: $(basename $0) <parallels|virtualbox> <6.5|7.0>"
+   echo "suported redhat versions '6' or '7'"
+   echo "usage: $(basename $0) <parallels|virtualbox> <6|7>"
    exit 1
 fi
 
