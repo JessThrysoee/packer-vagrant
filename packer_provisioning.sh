@@ -7,7 +7,16 @@ then
 
    if [[ -x /mnt/install ]]
    then
-      /mnt/install --install-unattended-with-deps --progress
+      yum -q -y install gcc make perl kernel-devel-$(uname -r)
+
+      /mnt/install --install-unattended --progress
+      if [[ -f /var/log/parallels-tools-install.log ]]
+      then
+         cat /var/log/parallels-tools-install.log
+      fi
+
+      yum -q -y history undo last
+
       umount /mnt
 
    else
@@ -22,10 +31,10 @@ then
 
    if [[ -x /mnt/VBoxLinuxAdditions.run ]]
    then
-      yum -y install gcc make perl kernel-devel-$(uname -r)
+      yum -q -y install gcc make perl kernel-devel-$(uname -r)
 
       /mnt/VBoxLinuxAdditions.run --nox11
-      yum -y history undo last
+      yum -q -y history undo last
 
       umount /mnt
 

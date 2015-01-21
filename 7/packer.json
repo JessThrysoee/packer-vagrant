@@ -7,9 +7,19 @@
       "cpus": "1"
    },
 
+   "variables" : {
+      "vendor" : "",
+      "os": "",
+      "iso_url": "",
+      "iso_checksum": "",
+
+      "cpus": "1",
+      "memsize": "512"
+   },
+
    "builders": [{
       "type": "parallels-iso",
-      "guest_os_type": "centos",
+      "guest_os_type": "{{user `vendor`}}",
 
       "vm_name": "{{user `os`}}-parallels",
 

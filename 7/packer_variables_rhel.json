@@ -1,0 +1,6 @@
+{
+   "vendor" : "rhel",
+   "os": "rhel-7",
+   "iso_url": "{{env `HOME`}}/Downloads/rhel-server-7.0-x86_64-dvd.iso",
+   "iso_checksum": "dummy"
+}

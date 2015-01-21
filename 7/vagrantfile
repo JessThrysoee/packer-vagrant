@@ -1,11 +1,10 @@
 
 Vagrant.configure("2") do |config|
 
-   config.vm.hostname = "centos"
+   #config.vm.hostname = "centos"
 
    config.vm.provider "parallels" do |v, override|
-      override.vm.box = 'JessThrysoee/centos-7-parallels'
-      v.name = "CentOS-7 (vagrant)"
+      override.vm.box = "JessThrysoee/#{ENV['VENDOR']}-6-parallels"
       v.memory = 512
       v.cpus = 1
       v.update_guest_tools = true
@@ -14,8 +13,7 @@ Vagrant.configure("2") do |config|
    end
 
    config.vm.provider "virtualbox" do |v, override|
-        override.vm.box = 'JessThrysoee/centos-7-virtualbox'
-        v.name = "CentOS-7 (vagrant)"
+        override.vm.box = "JessThrysoee/#{ENV['VENDOR']}-6-virtualbox"
         v.memory = 512
         v.cpus = 1
         v.gui = false
