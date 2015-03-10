@@ -7,7 +7,7 @@ then
 
    if [[ -x /mnt/install ]]
    then
-      yum -q -y install gcc make perl kernel-devel-$(uname -r)
+      yum -q -y install checkpolicy make gcc kernel-devel-$(uname -r) perl dkms
 
       /mnt/install --install-unattended --progress
       if [[ -f /var/log/parallels-tools-install.log ]]
@@ -31,7 +31,7 @@ then
 
    if [[ -x /mnt/VBoxLinuxAdditions.run ]]
    then
-      yum -q -y install gcc make perl kernel-devel-$(uname -r)
+      yum -q -y install checkpolicy make gcc kernel-devel-$(uname -r) perl dkms
 
       /mnt/VBoxLinuxAdditions.run --nox11
       yum -q -y history undo last
