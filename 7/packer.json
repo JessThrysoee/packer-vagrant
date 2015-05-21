@@ -6,7 +6,9 @@
       "iso_checksum": "",
 
       "cpus": "1",
-      "memsize": "1024"
+      "memsize": "1024",
+      "disksize_parallels-iso": "10G",
+      "disksize_virtualbox-iso": "10000"
    },
 
    "builders": [{
@@ -17,7 +19,8 @@
 
       "prlctl": [
          ["set", "{{.Name}}", "--memsize", "{{user `memsize`}}"],
-         ["set", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
+         ["set", "{{.Name}}", "--cpus", "{{user `cpus`}}"],
+         ["set", "{{.Name}}", "--device-set", "hdd0", "--size", "{{user `disksize_parallels-iso`}}"]
       ],
 
       "iso_url": "{{user `iso_url`}}",
@@ -57,6 +60,7 @@
 
       "guest_additions_mode": "attach",
 
+      "disk_size": "{{user `disksize_virtualbox-iso`}}",
       "boot_wait": "3s",
       "floppy_files": ["ks.cfg"],
       "boot_command": ["<tab> inst.ks=hd:fd0:/ks.cfg<enter>"],
