@@ -1,0 +1,22 @@
+
+Vagrant.configure("2") do |config|
+
+   config.vm.provider "parallels" do |v, override|
+      override.vm.box = "JessThrysoee/#{ENV['VENDOR']}-#{ENV['EL']}-parallels"
+      v.memory = 1024
+      v.cpus = 1
+      v.update_guest_tools = true
+      v.optimize_power_consumption = false
+      v.customize ["set", :id, "--on-shutdown", "close"]
+   end
+
+   config.vm.provider "virtualbox" do |v, override|
+        override.vm.box = "JessThrysoee/#{ENV['VENDOR']}-#{ENV['EL']}-virtualbox"
+        v.memory = 1024
+        v.cpus = 1
+        v.gui = false
+   end
+
+end
+
+# vi: set ft=ruby :

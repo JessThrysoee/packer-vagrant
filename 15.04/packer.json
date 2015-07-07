@@ -1,9 +1,9 @@
 {
    "variables" : {
-      "vendor" : "ubuntu",
-      "os": "ubuntu",
-      "iso_url": "http://releases.ubuntu.com/vivid/ubuntu-15.04-server-amd64.iso",
-      "iso_checksum": "487f4a81f22f8597503db3d51a1b502e",
+      "vendor" : "",
+      "os": "",
+      "iso_url": "",
+      "iso_checksum": "",
 
       "cpus": "1",
       "memsize": "1024",
@@ -35,16 +35,15 @@
 
       "boot_command": [
          "<esc><esc><enter><wait>",
-         "/install/vmlinuz noapic ",
+         "/install/vmlinuz ",
+         "noapic ",
+         "auto=true ",
+         "priority=critical ",
+         "initrd=/install/initrd.gz ",
          "preseed/file=/floppy/preseed.cfg ",
-         "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-         "hostname=ubuntu ",
-         "fb=false debconf/frontend=noninteractive ",
-         "keyboard-configuration/modelcode=SKIP ",
-         "keyboard-configuration/layout=USA ",
-         "keyboard-configuration/variant=USA ",
-         "console-setup/ask_detect=false ",
-         "initrd=/install/initrd.gz -- text <enter>"
+         "-- ",
+         "text ",
+         "<enter>"
       ],
 
       "ssh_username": "vagrant",
@@ -60,7 +59,12 @@
       {
          "type": "shell",
          "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
-         "scripts": ["../packer_provisioning_ubuntu.sh"]
+         "scripts": ["../packer_provisioning_ubuntu_1.sh"]
+      },
+      {
+         "type": "shell",
+         "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
+         "scripts": ["../packer_provisioning_ubuntu_2.sh"]
       }
    ],
 
