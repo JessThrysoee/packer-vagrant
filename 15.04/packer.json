@@ -1,0 +1,78 @@
+{
+   "variables" : {
+      "vendor" : "",
+      "os": "",
+      "iso_url": "",
+      "iso_checksum": "",
+
+      "cpus": "1",
+      "memsize": "1024",
+      "disksize_parallels-iso": "10G",
+      "disksize_virtualbox-iso": "10000"
+   },
+
+   "builders": [{
+      "type": "parallels-iso",
+      "guest_os_type": "{{user `vendor`}}",
+
+      "vm_name": "{{user `os`}}-parallels",
+
+      "prlctl": [
+         ["set", "{{.Name}}", "--memsize", "{{user `memsize`}}"],
+         ["set", "{{.Name}}", "--cpus", "{{user `cpus`}}"],
+         ["set", "{{.Name}}", "--device-set", "hdd0", "--size", "{{user `disksize_parallels-iso`}}"]
+      ],
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "md5",
+
+      "parallels_tools_flavor": "lin",
+      "parallels_tools_mode" : "attach",
+
+      "boot_wait": "3s",
+      "floppy_files": ["preseed.cfg"],
+
+      "boot_command": [
+         "<esc><esc><enter><wait>",
+         "/install/vmlinuz ",
+         "noapic ",
+         "auto=true ",
+         "priority=critical ",
+         "initrd=/install/initrd.gz ",
+         "preseed/file=/floppy/preseed.cfg ",
+         "-- ",
+         "text ",
+         "<enter>"
+      ],
+
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "10000s",
+
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+
+      "output_directory": "vm-parallels"
+   }],
+
+   "provisioners": [
+      {
+         "type": "shell",
+         "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
+         "scripts": ["../packer_provisioning_ubuntu_1.sh"]
+      },
+      {
+         "type": "shell",
+         "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
+         "scripts": ["../packer_provisioning_ubuntu_2.sh"]
+      }
+   ],
+
+   "post-processors": [
+      {
+         "type": "vagrant",
+         "keep_input_artifact": true,
+         "output": "box/{{user `os`}}-{{.Provider}}.box"
+      }
+   ]
+}

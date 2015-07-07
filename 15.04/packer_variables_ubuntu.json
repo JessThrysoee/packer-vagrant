@@ -1,0 +1,6 @@
+{
+   "vendor" : "ubuntu",
+   "os": "ubuntu-15.04",
+   "iso_url": "http://releases.ubuntu.com/vivid/ubuntu-15.04-server-amd64.iso",
+   "iso_checksum": "487f4a81f22f8597503db3d51a1b502e"
+}
