@@ -1,0 +1,74 @@
+{
+   "variables" : {
+      "vendor" : "ubuntu",
+      "os": "ubuntu",
+      "iso_url": "http://releases.ubuntu.com/vivid/ubuntu-15.04-server-amd64.iso",
+      "iso_checksum": "487f4a81f22f8597503db3d51a1b502e",
+
+      "cpus": "1",
+      "memsize": "1024",
+      "disksize_parallels-iso": "10G",
+      "disksize_virtualbox-iso": "10000"
+   },
+
+   "builders": [{
+      "type": "parallels-iso",
+      "guest_os_type": "{{user `vendor`}}",
+
+      "vm_name": "{{user `os`}}-parallels",
+
+      "prlctl": [
+         ["set", "{{.Name}}", "--memsize", "{{user `memsize`}}"],
+         ["set", "{{.Name}}", "--cpus", "{{user `cpus`}}"],
+         ["set", "{{.Name}}", "--device-set", "hdd0", "--size", "{{user `disksize_parallels-iso`}}"]
+      ],
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "md5",
+
+      "parallels_tools_flavor": "lin",
+      "parallels_tools_mode" : "attach",
+
+      "boot_wait": "3s",
+      "floppy_files": ["preseed.cfg"],
+
+      "boot_command": [
+         "<esc><esc><enter><wait>",
+         "/install/vmlinuz noapic ",
+         "preseed/file=/floppy/preseed.cfg ",
+         "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+         "hostname=ubuntu ",
+         "fb=false debconf/frontend=noninteractive ",
+         "keyboard-configuration/modelcode=SKIP ",
+         "keyboard-configuration/layout=USA ",
+         "keyboard-configuration/variant=USA ",
+         "console-setup/ask_detect=false ",
+         "initrd=/install/initrd.gz -- text <enter>"
+      ],
+
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "10000s",
+
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+
+      "output_directory": "vm-parallels"
+   }],
+
+   "provisioners": [
+      {
+         "type": "shell",
+         "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
+         "scripts": ["../packer_provisioning_ubuntu.sh"]
+      }
+   ],
+
+   "post-processors": [
+      {
+         "type": "vagrant",
+         "keep_input_artifact": true,
+         "output": "box/{{user `os`}}-{{.Provider}}.box"
+      }
+   ]
+}
