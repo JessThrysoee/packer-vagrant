@@ -52,3 +52,8 @@ fi
 rm -f /etc/udev/rules.d/70-persistent-net.rules
 sed -i -e '/^HWADDR/d' -e '/^UUID/d' /etc/sysconfig/network-scripts/ifcfg-eth0
 
+# Unregister RHEL system (registered in ks.cfg)
+subscription-manager remove --all && true
+subscription-manager unregister && true
+subscription-manager clean && true
+

@@ -2,5 +2,6 @@
    "vendor" : "centos",
    "os": "centos-6",
    "iso_url": "http://mirror.fysik.dtu.dk/linux/centos/6.6/isos/x86_64/CentOS-6.6-x86_64-minimal.iso",
-   "iso_checksum": "eb3c8be6ab668e6d83a118323a789e6c"
+   "iso_checksum": "eb3c8be6ab668e6d83a118323a789e6c",
+   "iso_checksum_type": "md5"
 }

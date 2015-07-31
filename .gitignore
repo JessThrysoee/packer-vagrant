@@ -2,3 +2,4 @@
 vm-*/
 box/
 packer_cache/
+*.iso

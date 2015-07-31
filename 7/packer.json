@@ -4,6 +4,7 @@
       "os": "",
       "iso_url": "",
       "iso_checksum": "",
+      "iso_checksum_type": "",
 
       "cpus": "1",
       "memsize": "1024",
@@ -25,7 +26,7 @@
 
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "md5",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
       "parallels_tools_flavor": "lin",
       "parallels_tools_mode" : "attach",
@@ -56,7 +57,7 @@
 
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "md5",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
       "guest_additions_mode": "attach",
 

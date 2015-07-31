@@ -23,7 +23,7 @@ then
 fi
 
 
-if [[ $vendor != ubuntu ]] 
+if [[ $vendor != ubuntu ]]
 then
    if [[ $el != 6 && $el != 7 ]]
    then
@@ -39,6 +39,13 @@ else
 fi
 
 cd $el
+
+if [[ $vendor == rhel ]] && [[ -e ks.cfg ]] && grep -q '@\(username\|password\)@' ks.cfg
+then
+   echo "Pass Red Hat user account name and password to subscription-manager in ks.cfg"
+   usage
+fi
+
 
 export VAGRANT_DEFAULT_PROVIDER=$provider
 

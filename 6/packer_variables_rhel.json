@@ -1,6 +1,7 @@
 {
    "vendor" : "rhel",
    "os": "rhel-6",
-   "iso_url": "/Users/jet/Downloads/rhel-server-6.6-x86_64-dvd.iso",
-   "iso_checksum": "ef031b0ae8458d6489eb277ba1dcb5de"
+   "iso_url": "rhel-server-6.5-x86_64-dvd.iso",
+   "iso_checksum": "a51b90f3dd4585781293ea08adde60eeb9cfa94670943bd99e9c07f13a259539",
+   "iso_checksum_type": "sha256"
 }
