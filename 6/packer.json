@@ -7,7 +7,12 @@
       "iso_checksum_type": "",
 
       "cpus": "1",
-      "memsize": "512"
+      "memsize": "1024",
+      "disksize_parallels-iso": "10G",
+      "disksize_virtualbox-iso": "10000",
+
+      "redhat_registration_username": "{{env `REDHAT_REGISTRATION_USERNAME`}}",
+      "redhat_registration_password": "{{env `REDHAT_REGISTRATION_PASSWORD`}}"
    },
 
    "builders": [{
@@ -18,7 +23,8 @@
 
       "prlctl": [
          ["set", "{{.Name}}", "--memsize", "{{user `memsize`}}"],
-         ["set", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
+         ["set", "{{.Name}}", "--cpus", "{{user `cpus`}}"],
+         ["set", "{{.Name}}", "--device-set", "hdd0", "--size", "{{user `disksize_parallels-iso`}}"]
       ],
 
       "iso_url": "{{user `iso_url`}}",
@@ -58,6 +64,7 @@
 
       "guest_additions_mode": "attach",
 
+      "disk_size": "{{user `disksize_virtualbox-iso`}}",
       "boot_wait": "3s",
       "floppy_files": ["ks.cfg"],
       "boot_command": ["<tab> ks=floppy/ks.cfg<enter>"],
@@ -74,6 +81,11 @@
    "provisioners": [
       {
          "type": "shell",
+         "environment_vars": [
+            "VENDOR={{user `vendor`}}",
+            "REDHAT_REGISTRATION_USERNAME={{user `redhat_registration_username`}}",
+            "REDHAT_REGISTRATION_PASSWORD={{user `redhat_registration_password`}}"
+         ],
          "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
          "scripts": ["../packer_provisioning.sh"]
       }

@@ -1,7 +1,7 @@
 {
    "vendor" : "rhel",
    "os": "rhel-6",
-   "iso_url": "rhel-server-6.5-x86_64-dvd.iso",
-   "iso_checksum": "a51b90f3dd4585781293ea08adde60eeb9cfa94670943bd99e9c07f13a259539",
+   "iso_url": "rhel-server-6.7-x86_64-dvd.iso",
+   "iso_checksum": "0e0acb2a544f4d58f10292144161f40439734c6e98b13ba8c595372b20354bc5",
    "iso_checksum_type": "sha256"
 }

@@ -9,7 +9,10 @@
       "cpus": "1",
       "memsize": "1024",
       "disksize_parallels-iso": "10G",
-      "disksize_virtualbox-iso": "10000"
+      "disksize_virtualbox-iso": "10000",
+
+      "redhat_registration_username": "{{env `REDHAT_REGISTRATION_USERNAME`}}",
+      "redhat_registration_password": "{{env `REDHAT_REGISTRATION_PASSWORD`}}"
    },
 
    "builders": [{
@@ -78,6 +81,11 @@
    "provisioners": [
       {
          "type": "shell",
+         "environment_vars": [
+            "VENDOR={{user `vendor`}}",
+            "REDHAT_REGISTRATION_USERNAME={{user `redhat_registration_username`}}",
+            "REDHAT_REGISTRATION_PASSWORD={{user `redhat_registration_password`}}"
+         ],
          "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
          "scripts": ["../packer_provisioning.sh"]
       }

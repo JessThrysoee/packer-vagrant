@@ -38,16 +38,21 @@ else
    fi
 fi
 
-cd $el
-
-if [[ $vendor == rhel ]] && [[ -e ks.cfg ]] && grep -q '@\(username\|password\)@' ks.cfg
+if [[ $vendor == rhel ]] && grep -q '@\(username\|password\)@' packer_provisioning.sh
 then
-   echo "Pass Red Hat user account name and password to subscription-manager in ks.cfg"
+   echo "Pass Red Hat user account name and password to subscription-manager by setting environment variables:"
+   echo ""
+   echo "export REDHAT_REGISTRATION_USERNAME=username"
+   echo "export REDHAT_REGISTRATION_PASSWORD=password"
+   echo ""
    usage
 fi
 
+cd $el
 
 export VAGRANT_DEFAULT_PROVIDER=$provider
+export VENDOR=$vendor
+export EL=$el
 
 #rm -rf output-${provider}-iso
 #vagrant destroy
@@ -57,6 +62,6 @@ rm -rf vm-${provider}
 packer build -only=${provider}-iso -var-file=packer_variables_${vendor}.json packer.json
 
 vagrant box add --force --name JessThrysoee/${vendor}-${el}-${provider} box/${vendor}-${el}-${provider}.box
-VENDOR=$vendor EL=$el vagrant up --provider $provider
+vagrant up --provider $provider
 vagrant destroy -f
 

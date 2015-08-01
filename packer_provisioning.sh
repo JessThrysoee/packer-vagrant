@@ -1,5 +1,17 @@
 #!/bin/bash
 
+if [[ $VENDOR == rhel ]]
+then
+   # Issue https://github.com/projectatomic/adb-vagrant-registration/issues/34
+   sudo ln -s /usr/sbin/subscription-manager /sbin && true
+
+   subscription-manager register --username $REDHAT_REGISTRATION_USERNAME --password $REDHAT_REGISTRATION_PASSWORD --auto-attach
+fi
+
+yum -y install policycoreutils-python setroubleshoot setroubleshoot-server
+#yum -y upgrade
+
+
 # parallels
 if [[ $PACKER_BUILDER_TYPE = parallels*  ]]
 then
@@ -52,8 +64,11 @@ fi
 rm -f /etc/udev/rules.d/70-persistent-net.rules
 sed -i -e '/^HWADDR/d' -e '/^UUID/d' /etc/sysconfig/network-scripts/ifcfg-eth0
 
-# Unregister RHEL system (registered in ks.cfg)
-subscription-manager remove --all && true
-subscription-manager unregister && true
-subscription-manager clean && true
+
+if [[ $VENDOR == rhel ]]
+then
+   subscription-manager remove --all
+   subscription-manager unregister
+   subscription-manager clean
+fi
 
