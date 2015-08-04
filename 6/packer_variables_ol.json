@@ -1,0 +1,8 @@
+{
+   "vendor" : "ol",
+   "box_tag": "ol-6",
+   "guest_os_type": "rhel",
+   "iso_url": "V77197-01.iso",
+   "iso_checksum": "8558E21EA5B4F94C257F2888531A3B8A",
+   "iso_checksum_type": "md5"
+}

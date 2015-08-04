@@ -5,7 +5,7 @@ vendor="$2"
 el="$3"
 
 usage() {
-   echo "usage: $(basename $0) <parallels|virtualbox> <centos|rhel> <6|7>"
+   echo "usage: $(basename $0) <parallels|virtualbox> <centos|rhel|ol> <6|7>"
    echo "usage: $(basename $0) <parallels|virtualbox> ubuntu <15.04>"
    exit 1
 }
@@ -16,9 +16,9 @@ then
    usage
 fi
 
-if [[ $vendor != ubuntu && $vendor != centos && $vendor != rhel ]]
+if [[ $vendor != ubuntu && $vendor != centos && $vendor != rhel && $vendor != ol ]]
 then
-   echo "suported vendors 'ubuntu', 'centos', or 'rhel'"
+   echo "suported vendors 'ubuntu', 'centos', 'rhel', 'ol'"
    usage
 fi
 

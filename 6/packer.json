@@ -1,7 +1,8 @@
 {
    "variables" : {
       "vendor" : "",
-      "os": "",
+      "box_tag": "",
+      "guest_os_type": "",
       "iso_url": "",
       "iso_checksum": "",
       "iso_checksum_type": "",
@@ -17,9 +18,9 @@
 
    "builders": [{
       "type": "parallels-iso",
-      "guest_os_type": "{{user `vendor`}}",
+      "guest_os_type": "{{user `guest_os_type`}}",
 
-      "vm_name": "{{user `os`}}-parallels",
+      "vm_name": "{{user `box_tag`}}-parallels",
 
       "prlctl": [
          ["set", "{{.Name}}", "--memsize", "{{user `memsize`}}"],
@@ -51,7 +52,7 @@
       "type": "virtualbox-iso",
       "guest_os_type": "RedHat_64",
 
-      "vm_name": "{{user `os`}}-virtualbox",
+      "vm_name": "{{user `box_tag`}}-virtualbox",
 
       "vboxmanage": [
          ["modifyvm", "{{.Name}}", "--memory", "{{user `memsize`}}"],
@@ -95,7 +96,7 @@
       {
          "type": "vagrant",
          "keep_input_artifact": true,
-         "output": "box/{{user `os`}}-{{.Provider}}.box"
+         "output": "box/{{user `box_tag`}}-{{.Provider}}.box"
       }
    ]
 }

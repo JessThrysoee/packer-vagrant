@@ -9,7 +9,7 @@ systemctl set-default multi-user.target
 rm -f /etc/udev/rules.d/70-persistent-net.rules
 #sed -i -e '/^HWADDR/d' -e '/^UUID/d' /etc/sysconfig/network-scripts/ifcfg-eth0
 
-# sudoers 
+# sudoers
 echo 'vagrant ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/vagrant
 echo 'Defaults !requiretty' >> /etc/sudoers.d/vagrant
 chmod 0440 /etc/sudoers.d/vagrant

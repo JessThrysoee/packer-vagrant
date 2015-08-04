@@ -19,9 +19,7 @@ then
 
    if [[ -x /mnt/install ]]
    then
-      yum -q -y install checkpolicy make gcc kernel-devel-$(uname -r) perl dkms
-
-      /mnt/install --install-unattended --progress
+      /mnt/install --install-unattended-with-deps --progress
       if [[ -f /var/log/parallels-tools-install.log ]]
       then
          cat /var/log/parallels-tools-install.log
