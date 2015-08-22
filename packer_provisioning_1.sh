@@ -4,9 +4,6 @@ echo "packer_provisioning_ubuntu_1.sh -- start" >&2
 
 if [[ $VENDOR == rhel ]]
 then
-   # Issue https://github.com/projectatomic/adb-vagrant-registration/issues/34
-   sudo ln -s /usr/sbin/subscription-manager /sbin && true
-
    subscription-manager register --username $REDHAT_REGISTRATION_USERNAME --password $REDHAT_REGISTRATION_PASSWORD --auto-attach
 fi
 

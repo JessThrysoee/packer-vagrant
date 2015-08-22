@@ -38,7 +38,7 @@ else
    fi
 fi
 
-if [[ $vendor == rhel ]] && grep -q '@\(username\|password\)@' packer_provisioning.sh
+if [[ $vendor == rhel ]] && [[ -z $REDHAT_REGISTRATION_USERNAME || -z $REDHAT_REGISTRATION_PASSWORD ]]
 then
    echo "Pass Red Hat user account name and password to subscription-manager by setting environment variables:"
    echo ""
