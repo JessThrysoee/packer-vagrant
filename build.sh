@@ -23,17 +23,17 @@ then
 fi
 
 
-if [[ $vendor != ubuntu ]]
+if [[ $vendor == ubuntu ]]
 then
-   if [[ $el != 6 && $el != 7 ]]
-   then
-      echo "suported versions '6' or '7'"
-      usage
-   fi
-else
    if [[ $el != 15.04 ]]
    then
       echo "suported versions '15.04'"
+      usage
+   fi
+else
+   if [[ $el != 6 && $el != 7 ]]
+   then
+      echo "suported versions '6' or '7'"
       usage
    fi
 fi
@@ -48,7 +48,12 @@ then
    usage
 fi
 
-cd $el
+if [[ $vendor == ubuntu ]]
+then
+   cd ubuntu
+else
+   cd redhat
+fi
 
 export VAGRANT_DEFAULT_PROVIDER=$provider
 export VENDOR=$vendor
@@ -59,7 +64,7 @@ export EL=$el
 #vagrant box remove --force JessThrysoee/packer_${vendor}-${el} && true
 
 rm -rf vm-${provider}
-packer build -only=${provider}-iso -var-file=packer_variables_${vendor}.json packer.json
+packer build -only=${provider}-iso -var-file=packer_variables_${vendor}-${el}.json packer.json
 
 vagrant box add --force --name JessThrysoee/${vendor}-${el}-${provider} box/${vendor}-${el}-${provider}.box
 vagrant up --provider $provider

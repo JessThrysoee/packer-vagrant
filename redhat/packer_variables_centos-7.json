@@ -1,7 +1,8 @@
 {
    "vendor" : "centos",
    "box_tag": "centos-7",
-   "guest_os_type": "centos",
+   "guest_os_type_parallels": "centos",
+   "guest_os_type_virtualbox": "RedHat_64",
    "iso_url": "CentOS-7-x86_64-Minimal-1503-01.iso",
    "iso_checksum": "d07ab3e615c66a8b2e9a50f4852e6a77",
    "iso_checksum_type": "md5"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "packer_provisioning_ubuntu_1.sh -- start" >&2
+echo "packer_provisioning_redhat_1.sh -- start" >&2
 
 if [[ $VENDOR == rhel ]]
 then
@@ -11,6 +11,6 @@ yum -y install policycoreutils-python setroubleshoot setroubleshoot-server
 yum -y upgrade
 
 # reboot so guest tool are build for potentially upgraded kernel
-echo "packer_provisioning_1.sh -- end/reboot" >&2
+echo "packer_provisioning_redhat_1.sh -- end/reboot" >&2
 reboot
 
