@@ -14,6 +14,8 @@
       "disksize_parallels": "10G",
       "disksize_virtualbox": "10000",
 
+      "boot_command" : "",
+
       "redhat_registration_username": "{{env `REDHAT_REGISTRATION_USERNAME`}}",
       "redhat_registration_password": "{{env `REDHAT_REGISTRATION_PASSWORD`}}"
    },
@@ -38,7 +40,7 @@
       "disk_size": "{{user `disksize_virtualbox`}}",
       "boot_wait": "3s",
       "floppy_files": ["ks-{{user `el`}}.cfg"],
-      "boot_command": ["<tab> inst.ks=hd:fd0:/ks-{{user `el`}}.cfg net.ifnames=0 biosdevname=0<enter>"],
+      "boot_command": ["{{user `boot_command`}}"],
 
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -69,7 +71,7 @@
 
       "boot_wait": "3s",
       "floppy_files": ["ks-{{user `el`}}.cfg"],
-      "boot_command": ["<tab> inst.ks=hd:fd0:/ks-{{user `el`}}.cfg net.ifnames=0 biosdevname=0<enter>"],
+      "boot_command": ["{{user `boot_command`}}"],
 
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
