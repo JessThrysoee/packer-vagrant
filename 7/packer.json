@@ -97,6 +97,7 @@
             "REDHAT_REGISTRATION_USERNAME={{user `redhat_registration_username`}}",
             "REDHAT_REGISTRATION_PASSWORD={{user `redhat_registration_password`}}"
          ],
+         "pause_before": "30s",
          "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
          "scripts": ["../packer_provisioning_2.sh"]
       }

@@ -13,9 +13,8 @@ fi
 yum -y install policycoreutils-python setroubleshoot setroubleshoot-server
 yum -y upgrade
 
-# reboot so parallels tool are build for potentially upgraded kernel
+# reboot so guest tool are build for potentially upgraded kernel
 
 echo "packer_provisioning_1.sh -- end/reboot" >&2
 reboot
-sleep 30
 
