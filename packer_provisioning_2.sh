@@ -56,8 +56,10 @@ then
    subscription-manager clean
 fi
 
+
 # network
 rm -f /etc/udev/rules.d/70-persistent-net.rules
 sed -i -e '/^HWADDR/d' -e '/^UUID/d' /etc/sysconfig/network-scripts/ifcfg-eth0
+
 
 echo "packer_provisioning_2.sh -- end" >&2

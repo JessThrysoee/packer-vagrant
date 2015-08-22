@@ -37,7 +37,7 @@
 
       "boot_wait": "3s",
       "floppy_files": ["ks.cfg"],
-      "boot_command": ["<tab> inst.ks=hd:fd0:/ks.cfg<enter>"],
+      "boot_command": ["<tab> inst.ks=hd:fd0:/ks.cfg net.ifnames=0 biosdevname=0<enter>"],
 
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -68,7 +68,7 @@
       "disk_size": "{{user `disksize_virtualbox-iso`}}",
       "boot_wait": "3s",
       "floppy_files": ["ks.cfg"],
-      "boot_command": ["<tab> inst.ks=hd:fd0:/ks.cfg<enter>"],
+      "boot_command": ["<tab> inst.ks=hd:fd0:/ks.cfg net.ifnames=0 biosdevname=0<enter>"],
 
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
