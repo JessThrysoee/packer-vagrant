@@ -90,7 +90,7 @@
             "REDHAT_REGISTRATION_PASSWORD={{user `redhat_registration_password`}}"
          ],
          "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
-         "scripts": ["../packer_provisioning_redhat_1.sh"]
+         "scripts": ["provision/redhat_1.sh"]
       },
       {
          "pause_before": "30s",
@@ -101,7 +101,7 @@
             "REDHAT_REGISTRATION_PASSWORD={{user `redhat_registration_password`}}"
          ],
          "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
-         "scripts": ["../packer_provisioning_redhat_2.sh"]
+         "scripts": ["provision/redhat_2.sh"]
       }
    ],
 

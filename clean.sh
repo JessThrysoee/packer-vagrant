@@ -1,7 +1,7 @@
 #!/bin/bash
 
-for el in 6 7 15.04
+for vendor in redhat ubuntu
 do
-   rm -rf $el/vm-* $el/box $el/packer_cache
+   rm -rf $vendor/vm-* $vendor/box $vendor/packer_cache
 done
 
