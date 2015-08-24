@@ -1,0 +1,5 @@
+# Never checkin .iso's, so ignore everything in this directory
+*
+
+# Except this file
+!.gitignore
