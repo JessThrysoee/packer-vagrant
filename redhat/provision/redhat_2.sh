@@ -32,6 +32,10 @@ then
    if [[ -x /mnt/VBoxLinuxAdditions.run ]]
    then
       yum -q -y install checkpolicy make gcc kernel-devel-$(uname -r) perl dkms bzip2
+      if [[ $VENDOR == ol ]]
+      then
+         yum -q -y install kernel-uek-devel-$(uname -r)
+      fi
 
       /mnt/VBoxLinuxAdditions.run --nox11
       yum -q -y history undo last
