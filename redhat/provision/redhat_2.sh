@@ -65,5 +65,7 @@ fi
 rm -f /etc/udev/rules.d/70-persistent-net.rules
 sed -i -e '/^HWADDR/d' -e '/^UUID/d' /etc/sysconfig/network-scripts/ifcfg-eth0
 
+yum clean all
+yum autoremove
 
 echo "packer_provisioning_redhat_2.sh -- end" >&2
