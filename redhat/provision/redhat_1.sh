@@ -7,7 +7,12 @@ then
    subscription-manager register --username $REDHAT_REGISTRATION_USERNAME --password $REDHAT_REGISTRATION_PASSWORD --auto-attach
 fi
 
-yum -y install policycoreutils-python setroubleshoot setroubleshoot-server
+yum -y install \
+   policycoreutils-python \
+   libselinux-python \
+   setroubleshoot-server \
+   setools-console
+
 yum -y upgrade
 
 # reboot so guest tool are build for potentially upgraded kernel
