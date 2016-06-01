@@ -11,8 +11,8 @@
 
       "cpus": "1",
       "memsize": "1024",
-      "disksize_parallels": "10G",
-      "disksize_virtualbox": "10000",
+      "disksize_parallels": "40G",
+      "disksize_virtualbox": "40000",
 
       "boot_command" : "",
 
