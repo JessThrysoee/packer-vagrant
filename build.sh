@@ -6,7 +6,7 @@ el="$3"
 
 usage() {
    echo "usage: $(basename $0) <parallels|virtualbox> <centos|rhel|ol> <6|7>"
-   echo "usage: $(basename $0) <parallels|virtualbox> ubuntu <15.04>"
+   echo "usage: $(basename $0) <parallels|virtualbox> ubuntu <16.04>"
    exit 1
 }
 
@@ -25,9 +25,9 @@ fi
 
 if [[ $vendor == ubuntu ]]
 then
-   if [[ $el != 15.04 ]]
+   if [[ $el != 16.04 ]]
    then
-      echo "suported versions '15.04'"
+      echo "suported versions '16.04'"
       usage
    fi
 else

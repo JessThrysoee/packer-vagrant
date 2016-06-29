@@ -11,7 +11,7 @@ then
 
    if [[ -x /mnt/install ]]
    then
-      packages="make gcc linux-headers-$(uname -r) build-essential"
+      packages="linux-headers-$(uname -r) build-essential"
       apt-get -y install $packages
 
       /mnt/install --install-unattended --progress
@@ -37,10 +37,13 @@ then
 
    if [[ -x /mnt/VBoxLinuxAdditions.run ]]
    then
-      yum -q -y install checkpolicy make gcc kernel-devel-$(uname -r) perl dkms
+      packages="linux-headers-$(uname -r) build-essential perl dkms"
+      apt-get -y install $packages
 
       /mnt/VBoxLinuxAdditions.run --nox11
-      yum -q -y history undo last
+
+      apt-get -y purge $packages
+      apt-get -y autoremove --purge
 
       umount /mnt
 

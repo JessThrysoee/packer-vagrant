@@ -27,7 +27,7 @@ apt-get -y autoremove
 apt-get -y autoclean
 apt-get -y clean
 
-# reboot so parallels tool are build for potentially upgraded kernel
+# reboot so guest tools are build for potentially upgraded kernel
 
 echo "packer_provisioning_ubuntu_1.sh -- end/reboot" >&2
 reboot

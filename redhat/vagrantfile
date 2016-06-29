@@ -17,9 +17,6 @@ Vagrant.configure("2") do |config|
       v.customize ["set", :id, "--on-shutdown", "close"]
    end
 
-   if Vagrant.has_plugin?('vagrant-registration')
-      config.registration.skip = true
-   end
 end
 
 # vi: set ft=ruby :

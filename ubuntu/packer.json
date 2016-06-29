@@ -1,48 +1,52 @@
 {
    "variables" : {
       "vendor" : "",
-      "os": "",
+      "box_tag": "",
+      "guest_os_type_virtualbox": "",
       "iso_url": "",
       "iso_checksum": "",
+      "iso_checksum_type": "",
 
       "cpus": "1",
       "memsize": "1024",
-      "disksize_parallels-iso": "10G",
-      "disksize_virtualbox-iso": "10000"
+      "disksize_virtualbox": "40000",
+
+      "boot_command" : ""
    },
 
    "builders": [{
-      "type": "parallels-iso",
-      "guest_os_type": "{{user `vendor`}}",
+      "type": "virtualbox-iso",
+      "guest_os_type": "{{user `guest_os_type_virtualbox`}}",
 
-      "vm_name": "{{user `os`}}-parallels",
+      "vm_name": "{{user `box_tag`}}-virtualbox",
 
-      "prlctl": [
-         ["set", "{{.Name}}", "--memsize", "{{user `memsize`}}"],
-         ["set", "{{.Name}}", "--cpus", "{{user `cpus`}}"],
-         ["set", "{{.Name}}", "--device-set", "hdd0", "--size", "{{user `disksize_parallels-iso`}}"]
+      "vboxmanage": [
+         ["modifyvm", "{{.Name}}", "--memory", "{{user `memsize`}}"],
+         ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
       ],
 
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "md5",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "parallels_tools_flavor": "lin",
-      "parallels_tools_mode" : "attach",
+      "guest_additions_mode": "attach",
+      "http_directory": "preseed",
 
+      "disk_size": "{{user `disksize_virtualbox`}}",
       "boot_wait": "3s",
-      "floppy_files": ["preseed.cfg"],
-
       "boot_command": [
-         "<esc><esc><enter><wait>",
+         "<enter><wait><f6><esc>",
+         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
          "/install/vmlinuz ",
          "noapic ",
+         "initrd=/install/initrd.gz ",
+         "locale=en_US ",
          "auto=true ",
          "priority=critical ",
-         "initrd=/install/initrd.gz ",
-         "preseed/file=/floppy/preseed.cfg ",
-         "-- ",
-         "text ",
+         "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
          "<enter>"
       ],
 
@@ -52,19 +56,19 @@
 
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
 
-      "output_directory": "vm-parallels"
+      "output_directory": "vm-virtualbox"
    }],
 
    "provisioners": [
       {
          "type": "shell",
          "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
-         "scripts": ["../packer_provisioning_ubuntu_1.sh"]
+         "scripts": ["provision/ubuntu_1.sh"]
       },
       {
          "type": "shell",
          "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
-         "scripts": ["../packer_provisioning_ubuntu_2.sh"]
+         "scripts": ["provision/ubuntu_2.sh"]
       }
    ],
 
