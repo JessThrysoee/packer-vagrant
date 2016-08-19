@@ -1,6 +1,7 @@
 {
    "vendor" : "centos",
    "box_tag": "centos-6",
+   "inst_ks": "ks",
    "guest_os_type_parallels": "centos",
    "guest_os_type_virtualbox": "RedHat_64",
    "iso_url": "iso/CentOS-6.8-x86_64-minimal.iso",

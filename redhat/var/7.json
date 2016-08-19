@@ -1,3 +1,0 @@
-{
-   "boot_command": "<tab> inst.ks=hd:fd0:/ks-7.cfg net.ifnames=0 biosdevname=0<enter>"
-}

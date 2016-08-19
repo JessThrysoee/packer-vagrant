@@ -1,6 +1,7 @@
 {
    "vendor" : "rhel",
    "box_tag": "rhel-6",
+   "inst_ks": "ks",
    "guest_os_type_parallels": "rhel",
    "guest_os_type_virtualbox": "RedHat_64",
    "iso_url": "iso/rhel-server-6.7-x86_64-dvd.iso",

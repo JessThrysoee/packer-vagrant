@@ -1,6 +1,7 @@
 {
    "vendor" : "rhel",
    "box_tag": "rhel-7",
+   "inst_ks": "inst.ks",
    "guest_os_type_parallels": "rhel",
    "guest_os_type_virtualbox": "RedHat_64",
    "iso_url": "iso/rhel-server-7.2-x86_64-dvd.iso",

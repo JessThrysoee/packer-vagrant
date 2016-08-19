@@ -1,6 +1,7 @@
 {
    "vendor" : "ol",
    "box_tag": "ol-7",
+   "inst_ks": "inst.ks",
    "guest_os_type_parallels": "rhel",
    "guest_os_type_virtualbox": "Oracle_64",
    "iso_url": "iso/V100082-01.iso",
