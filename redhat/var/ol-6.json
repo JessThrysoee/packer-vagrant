@@ -2,8 +2,7 @@
    "vendor" : "ol",
    "box_tag": "ol-6",
    "inst_ks": "ks",
-   "guest_os_type_parallels": "rhel",
-   "guest_os_type_virtualbox": "Oracle_64",
+   "guest_os_type": "Oracle_64",
    "iso_url": "iso/V77197-01.iso",
    "iso_checksum": "8558E21EA5B4F94C257F2888531A3B8A",
    "iso_checksum_type": "md5"

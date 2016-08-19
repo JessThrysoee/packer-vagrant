@@ -2,55 +2,26 @@
 
 echo "packer_provisioning_redhat_2.sh -- start" >&2
 
-# parallels
-if [[ $PACKER_BUILDER_TYPE = parallels*  ]]
+mount -r -t iso9660 /dev/sr1 /mnt
+
+if [[ -x /mnt/VBoxLinuxAdditions.run ]]
 then
-   mount -r -t iso9660 /dev/sr1 /mnt
-
-   if [[ -x /mnt/install ]]
+   yum -q -y install checkpolicy make gcc kernel-devel-$(uname -r) perl dkms bzip2
+   if [[ $VENDOR == ol ]]
    then
-      /mnt/install --install-unattended-with-deps --progress
-      if [[ -f /var/log/parallels-tools-install.log ]]
-      then
-         cat /var/log/parallels-tools-install.log
-      fi
-
-      yum -q -y history undo last
-
-      umount /mnt
-
-   else
-      echo "guest addition not found" >&2
-      exit 1
+      yum -q -y install kernel-uek-devel-$(uname -r)
    fi
 
-# virtualbox
-elif [[ $PACKER_BUILDER_TYPE = virtualbox* ]]
-then
-   mount -r -t iso9660 /dev/sr1 /mnt
+   /mnt/VBoxLinuxAdditions.run --nox11
+   yum -q -y history undo last
 
-   if [[ -x /mnt/VBoxLinuxAdditions.run ]]
-   then
-      yum -q -y install checkpolicy make gcc kernel-devel-$(uname -r) perl dkms bzip2
-      if [[ $VENDOR == ol ]]
-      then
-         yum -q -y install kernel-uek-devel-$(uname -r)
-      fi
-
-      /mnt/VBoxLinuxAdditions.run --nox11
-      yum -q -y history undo last
-
-      umount /mnt
-
-   else
-      echo "guest addition not found" >&2
-      exit 1
-   fi
+   umount /mnt
 
 else
-   echo "Unsupported builder: $PACKER_BUILDER_TYPE" >&2
+   echo "guest addition not found" >&2
    exit 1
 fi
+
 
 
 if [[ $VENDOR == rhel ]]

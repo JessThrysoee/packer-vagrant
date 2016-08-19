@@ -1,20 +1,14 @@
 #!/bin/bash -e
 
-provider="$1"
-vendor="$2"
-el="$3"
+provider=virtualbox
+vendor="$1"
+el="$2"
 
 usage() {
-   echo "usage: $(basename $0) <parallels|virtualbox> <centos|rhel|ol> <6|7>"
-   echo "usage: $(basename $0) <parallels|virtualbox> ubuntu <16.04>"
+   echo "usage: $(basename $0) <centos|rhel|ol> <6|7>"
+   echo "usage: $(basename $0) ubuntu <16.04>"
    exit 1
 }
-
-if [[ $provider != parallels && $provider != virtualbox ]]
-then
-   echo "suported providers 'parallels' or 'virtualbox'"
-   usage
-fi
 
 if [[ $vendor != ubuntu && $vendor != centos && $vendor != rhel && $vendor != ol ]]
 then

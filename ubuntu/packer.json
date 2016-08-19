@@ -2,21 +2,21 @@
    "variables" : {
       "vendor" : "",
       "box_tag": "",
-      "guest_os_type_virtualbox": "",
+      "guest_os_type": "",
       "iso_url": "",
       "iso_checksum": "",
       "iso_checksum_type": "",
 
       "cpus": "1",
       "memsize": "1024",
-      "disksize_virtualbox": "40000",
+      "disksize": "40000",
 
       "boot_command" : ""
    },
 
    "builders": [{
       "type": "virtualbox-iso",
-      "guest_os_type": "{{user `guest_os_type_virtualbox`}}",
+      "guest_os_type": "{{user `guest_os_type`}}",
 
       "vm_name": "{{user `box_tag`}}-virtualbox",
 
@@ -32,7 +32,7 @@
       "guest_additions_mode": "attach",
       "http_directory": "preseed",
 
-      "disk_size": "{{user `disksize_virtualbox`}}",
+      "disk_size": "{{user `disksize`}}",
       "boot_wait": "3s",
       "boot_command": [
          "<enter><wait><f6><esc>",

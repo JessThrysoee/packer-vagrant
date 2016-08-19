@@ -3,16 +3,14 @@
       "vendor" : "",
       "el": "{{env `EL`}}",
       "box_tag": "",
-      "guest_os_type_parallels": "",
-      "guest_os_type_virtualbox": "",
+      "guest_os_type": "",
       "iso_url": "",
       "iso_checksum": "",
       "iso_checksum_type": "",
 
       "cpus": "1",
       "memsize": "1024",
-      "disksize_parallels": "40G",
-      "disksize_virtualbox": "40000",
+      "disksize": "40000",
 
       "redhat_registration_username": "{{env `REDHAT_REGISTRATION_USERNAME`}}",
       "redhat_registration_password": "{{env `REDHAT_REGISTRATION_PASSWORD`}}"
@@ -20,7 +18,7 @@
 
    "builders": [{
       "type": "virtualbox-iso",
-      "guest_os_type": "{{user `guest_os_type_virtualbox`}}",
+      "guest_os_type": "{{user `guest_os_type`}}",
 
       "vm_name": "{{user `box_tag`}}-virtualbox",
 
@@ -35,7 +33,7 @@
 
       "guest_additions_mode": "attach",
 
-      "disk_size": "{{user `disksize_virtualbox`}}",
+      "disk_size": "{{user `disksize`}}",
       "boot_wait": "3s",
       "http_directory": "kickstart",
       "boot_command": "<tab> {{user `inst_ks`}}=http://{{.HTTPIP}}:{{.HTTPPort}}/ks-{{user `el`}}.cfg net.ifnames=0 biosdevname=0<enter>",
@@ -47,38 +45,6 @@
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
 
       "output_directory": "vm-virtualbox"
-   },
-   {
-      "type": "parallels-iso",
-      "guest_os_type": "{{user `guest_os_type_parallels`}}",
-
-      "vm_name": "{{user `box_tag`}}-parallels",
-
-      "prlctl": [
-         ["set", "{{.Name}}", "--memsize", "{{user `memsize`}}"],
-         ["set", "{{.Name}}", "--cpus", "{{user `cpus`}}"],
-         ["set", "{{.Name}}", "--device-set", "hdd0", "--size", "{{user `disksize_parallels`}}"]
-      ],
-
-      "iso_url": "{{user `iso_url`}}",
-      "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
-
-      "parallels_tools_flavor": "lin",
-      "parallels_tools_mode" : "attach",
-
-      "boot_wait": "3s",
-      "http_directory": "kickstart",
-      "boot_command": "<tab> {{user `inst_ks`}}=http://{{.HTTPIP}}:{{.HTTPPort}}/ks-{{user `el`}}.cfg net.ifnames=0 biosdevname=0<enter>",
-
-      "ssh_username": "vagrant",
-      "ssh_password": "vagrant",
-      "ssh_wait_timeout": "10000s",
-
-      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
-
-      "output_directory": "vm-parallels"
-
    }],
 
    "provisioners": [
