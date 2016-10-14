@@ -4,9 +4,11 @@ provider=virtualbox
 vendor="$1"
 el="$2"
 
+supported_ubuntu=16.10
+
 usage() {
    echo "usage: $(basename $0) <centos|rhel|ol> <6|7>"
-   echo "usage: $(basename $0) ubuntu <16.04>"
+   echo "usage: $(basename $0) ubuntu <$supported_ubuntu>"
    exit 1
 }
 
@@ -19,9 +21,9 @@ fi
 
 if [[ $vendor == ubuntu ]]
 then
-   if [[ $el != 16.04 ]]
+   if [[ $el != $supported_ubuntu ]]
    then
-      echo "suported versions '16.04'"
+      echo "suported versions $supported_ubuntu"
       usage
    fi
 else
