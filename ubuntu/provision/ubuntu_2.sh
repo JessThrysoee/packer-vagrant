@@ -2,8 +2,6 @@
 
 echo "packer_provisioning_ubuntu_2.sh -- start" >&2
 
-sleep 30
-
 mount -r -t iso9660 /dev/sr1 /mnt
 
 if [[ -x /mnt/VBoxLinuxAdditions.run ]]
