@@ -66,6 +66,7 @@
          "scripts": ["provision/ubuntu_1.sh"]
       },
       {
+         "pause_before": "30s",
          "type": "shell",
          "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
          "scripts": ["provision/ubuntu_2.sh"]

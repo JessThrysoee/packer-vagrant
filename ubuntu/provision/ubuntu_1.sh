@@ -31,4 +31,3 @@ apt-get -y clean
 
 echo "packer_provisioning_ubuntu_1.sh -- end/reboot" >&2
 reboot
-sleep 30

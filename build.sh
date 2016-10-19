@@ -61,6 +61,7 @@ export EL=$el
 
 rm -rf vm-${provider}
 packer build -only=${provider}-iso -var-file=var/${vendor}-${el}.json packer.json
+#PACKER_LOG=1 packer build -only=${provider}-iso -var-file=var/${vendor}-${el}.json packer.json
 
 vagrant box add --force --name JessThrysoee/${vendor}-${el}-${provider} box/${vendor}-${el}-${provider}.box
 vagrant up --provider $provider
