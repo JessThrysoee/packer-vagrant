@@ -10,11 +10,13 @@ then
    apt-get -y install $packages
 
    /mnt/VBoxLinuxAdditions.run --nox11
+   umount /mnt
 
    apt-get -y purge $packages
    apt-get -y autoremove --purge
 
-   umount /mnt
+   # 14.04 autoremoves openssh-server for some reason?
+   apt-get -y install openssh-server
 
 else
    echo "guest addition not found" >&2
