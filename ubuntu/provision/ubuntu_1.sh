@@ -2,6 +2,8 @@
 
 echo "packer_provisioning_ubuntu_1.sh -- start" >&2
 
+export DEBIAN_FRONTEND=noninteractive
+
 # non graphical
 systemctl set-default multi-user.target
 
