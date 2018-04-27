@@ -6,7 +6,7 @@ el="$2"
 
 usage() {
    echo "usage: $(basename $0) <centos|rhel|ol> <6|7>"
-   echo "usage: $(basename $0) ubuntu <14.04|16.04|16.10>"
+   echo "usage: $(basename $0) ubuntu <14.04|16.04|16.10|18.04>"
    exit 1
 }
 
@@ -19,9 +19,9 @@ fi
 
 if [[ $vendor == ubuntu ]]
 then
-   if [[ $el != 14.04 && $el != 16.04 && $el != 16.10 ]]
+   if [[ $el != 14.04 && $el != 16.04 && $el != 16.10 && $el != 18.04 ]]
    then
-      echo "suported versions '14.04' or '16.04' or '16.10'"
+      echo "suported versions '14.04' or '16.04' or '16.10' or '18.04'"
       usage
    fi
 else
