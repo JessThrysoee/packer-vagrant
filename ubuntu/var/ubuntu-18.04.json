@@ -3,8 +3,8 @@
    "box_tag": "ubuntu",
    "os": "ubuntu-18.04",
    "guest_os_type": "Ubuntu_64",
-   "iso_url": "iso/ubuntu-18.04-server-amd64.iso",
-   "iso_checksum": "1413c9797dbfa1e57fabfb5c91cfb96f",
+   "iso_url": "iso/ubuntu-18.04.1-server-amd64.iso",
+   "iso_checksum": "e8264fa4c417216f4304079bd94f895e",
 
    "iso_checksum_type": "md5"
 }
