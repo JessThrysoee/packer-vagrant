@@ -4,6 +4,9 @@ echo "packer_provisioning_ubuntu_1.sh -- start" >&2
 
 export DEBIAN_FRONTEND=noninteractive
 
+# Ubuntu server does not seem to default to UTF-8 ?!?!
+update-locale LANG="en_US.UTF-8"
+
 # non graphical
 systemctl set-default multi-user.target
 
