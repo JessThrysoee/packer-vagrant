@@ -63,4 +63,5 @@ PACKER_LOG=0 packer build -only=${provider}-iso -var-file=var/${vendor}-${el}.js
 vagrant box add --force --name JessThrysoee/${vendor}-${el}-${provider} box/${vendor}-${el}-${provider}.box
 vagrant up --provider $provider
 vagrant destroy -f
+rm box/${vendor}-${el}-${provider}.box
 
