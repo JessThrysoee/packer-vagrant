@@ -28,6 +28,7 @@ chown -R vagrant:vagrant ~vagrant/.ssh
 # upgrade
 apt-get -y update
 apt-get -y dist-upgrade
+apt-get -y install --install-recommends linux-generic-hwe-${GUEST_OS_VERSION}
 apt-get -y autoremove
 apt-get -y autoclean
 apt-get -y clean

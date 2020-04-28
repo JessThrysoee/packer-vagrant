@@ -18,6 +18,7 @@ then
    apt-get -y autoremove --purge
 
    # 14.04 autoremoves openssh-server for some reason?
+   apt-get -y install --install-recommends linux-generic-hwe-${GUEST_OS_VERSION}
    apt-get -y install openssh-server
 
 else

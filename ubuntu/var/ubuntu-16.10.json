@@ -2,6 +2,7 @@
    "vendor" : "ubuntu",
    "box_tag": "ubuntu",
    "os": "ubuntu-16.10",
+   "guest_os_version": "16.10",
    "guest_os_type": "Ubuntu_64",
    "iso_url": "iso/ubuntu-16.10-server-amd64.iso",
    "iso_checksum": "7d6de832aee348bacc894f0a2ab1170d",

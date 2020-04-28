@@ -2,6 +2,7 @@
    "variables" : {
       "vendor" : "",
       "box_tag": "",
+      "guest_os_version": "",
       "guest_os_type": "",
       "iso_url": "",
       "iso_checksum": "",
@@ -30,27 +31,16 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
       "guest_additions_mode": "attach",
-      "http_directory": "preseed",
+      "http_directory": "cloud-init",
 
       "disk_size": "{{user `disksize`}}",
-      "boot_wait": "3s",
+      "boot_wait": "5s",
       "boot_command": [
-         "<enter><wait><f6><wait><esc><wait>",
-         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-         "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-         "<wait5>/install/vmlinuz",
-         "<wait> noapic",
-         "<wait> initrd=/install/initrd.gz",
-         "<wait> locale=en_US",
-         "<wait> auto=true",
-         "<wait> priority=critical",
-         "<wait> url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
-         "<wait> --",
-         "<wait><enter>"
-      ],
 
+         "<enter><wait><enter><wait><f6><esc>",
+         "autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/",
+         "<enter>"
+      ],
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_wait_timeout": "10000s",
@@ -63,6 +53,7 @@
    "provisioners": [
       {
          "type": "shell",
+         "environment_vars": "GUEST_OS_VERSION={{user `guest_os_version`}}",
          "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
          "expect_disconnect": true,
          "scripts": ["provision/ubuntu_1.sh"]
@@ -70,6 +61,7 @@
       {
          "pause_before": "30s",
          "type": "shell",
+         "environment_vars": "GUEST_OS_VERSION={{user `guest_os_version`}}",
          "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
          "scripts": ["provision/ubuntu_2.sh"]
       }

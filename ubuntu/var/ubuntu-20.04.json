@@ -1,0 +1,10 @@
+{
+   "vendor" : "ubuntu",
+   "box_tag": "ubuntu",
+   "os": "ubuntu-20.04",
+   "guest_os_version": "20.04",
+   "guest_os_type": "Ubuntu_64",
+   "iso_url": "iso/ubuntu-20.04-live-server-amd64.iso",
+   "iso_checksum": "f03d31c11136e24c10c705b7b3efc39f",
+   "iso_checksum_type": "md5"
+}

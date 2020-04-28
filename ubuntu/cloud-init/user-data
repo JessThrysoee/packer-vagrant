@@ -1,0 +1,17 @@
+#cloud-config
+autoinstall:
+  version: 1
+  identity:
+    hostname: ubuntu-server
+    username: vagrant
+    #/usr/local/opt/openssl/bin/openssl passwd -6 -salt $(openssl rand -hex 8) vagrant
+    password: '$6$cc3f9096cd6f9bc4$nGrPOYdvqTci8wwyLcmy.fJXuMvVK4FzyPZ/FHp/ExhupfkCdJDnEr1a0CwS.maTC1IwjHKaThlAZIhuQCBX00'
+  network:
+    network:
+      version: 2
+      ethernets:
+        ens33:
+          dhcp4: true
+          dhcp-identifier: mac
+  ssh:
+    install-server: true
